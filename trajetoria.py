@@ -63,15 +63,58 @@ def exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a):
         i += 1
 
 def main():
-    # teste
-    t_0 = 0
-    posicao_0 = [0, 0, 0]
-    v_0 = 15
-    angulos = [45, 0]
-    t = 10
-    epsilon = 0.01
-    a = [0, 0.1, 0, 0, 0, 9.8]
-
-    exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a)
+    teste = 4
+    match teste:
+        # teste 1 - Sem velocidade inicial em y, Sem resistencia do ar, sem vento
+        case 1:
+            t_0 = 0
+            posicao_0 = [0, 0, 0]
+            v_0 = 15
+            angulos = [45, 0]
+            t = 10
+            epsilon = 0.0001
+            a = [0, 0.1, 0, 0, 0, 9.8]
+            exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a)
+        # teste 2 - Com velocidade inicial em y, Sem resistencia do ar, sem vento
+        case 2:
+            t_0 = 0
+            posicao_0 = [0, 0, 0]
+            v_0 = 15
+            angulos = [45, 30]
+            t = 10
+            epsilon = 0.01
+            a = [0, 0.1, 0, 0, 0, 9.8]
+            exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a)
+        # teste 3 - Sem velocidade inicial em y, Com resistencia do ar, sem vento, bola de beisebel
+        case 3:
+            coef_arrasto = 0.35
+            massa = 0.15
+            diametro = 0.07
+            massa_especifica_ar = 1.22
+            gama = 0.5*coef_arrasto*massa_especifica_ar*(math.pi*math.pow((diametro/2), 2))
+            t_0 = 0
+            posicao_0 = [0, 0, 0]
+            v_0 = 15
+            angulos = [45, 0]
+            t = 10
+            epsilon = 0.0001
+            a = [gama, massa, 0, 0, 0, 9.806]
+            exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a)
+        # teste 4 - Sem velocidade inicial em y, Com resistencia do ar, Com vento, bola de beisebel
+        case 4:
+            coef_arrasto = 0.35
+            massa = 0.15
+            diametro = 0.07
+            massa_especifica_ar = 1.22
+            vento = [-1.5, 1.5, 0]
+            gama = 0.5*coef_arrasto*massa_especifica_ar*(math.pi*math.pow((diametro/2), 2))
+            t_0 = 0
+            posicao_0 = [0, 0, 0]
+            v_0 = 15
+            angulos = [45, 0]
+            t = 10
+            epsilon = 0.0001
+            a = [gama, massa, vento[0], vento[1], vento[2], 9.806]
+            exibe_trajetoria(t_0, posicao_0, v_0, angulos, t, epsilon, a)
 
 main()
