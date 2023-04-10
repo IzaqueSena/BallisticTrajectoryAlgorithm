@@ -20,3 +20,13 @@ def f(t, y, a):
     f_6 = -(a[0]/a[1]) * (y[5] - a[4]) * math.sqrt(math.pow((y[3]-a[2]), 2) + math.pow((y[4]-a[3]), 2) + math.pow((y[5]-a[4]), 2)) - a[5]
     f = np.array([f_1, f_2, f_3, f_4, f_5, f_6])
     return f
+
+def f_manufaturada(y):
+    f_6 = y[5]
+    f_5 = 2*y[4] + 4*y[5]
+    f_4 = 3*y[3] + y[4] + 3*y[5]
+    f_3 = y[2] + 3*y[3] + y[4] + 2*y[5]
+    f_2 = 2*y[1] + 2*[2] + y[3] + 2*y[4] + y[5]
+    f_1 = y[0] + 2*y[1] + 4*y[2] + 3*y[3] + 2*y[4] + y[5]
+    f = np.array([f_1, f_2, f_3, f_4, f_5, f_6])
+    return f
