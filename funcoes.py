@@ -21,12 +21,22 @@ def f(t, y, a):
     f = np.array([f_1, f_2, f_3, f_4, f_5, f_6])
     return f
 
-def f_manufaturada(y):
+def f_manufaturada(t, y, a):
     f_6 = y[5]
-    f_5 = 2*y[4] + 4*y[5]
-    f_4 = 3*y[3] + y[4] + 3*y[5]
-    f_3 = y[2] + 3*y[3] + y[4] + 2*y[5]
-    f_2 = 2*y[1] + 2*[2] + y[3] + 2*y[4] + y[5]
-    f_1 = y[0] + 2*y[1] + 4*y[2] + 3*y[3] + 2*y[4] + y[5]
+    f_5 = y[4] + y[5]
+    f_4 = y[3] + y[4] + y[5]
+    f_3 = y[2] - y[4] - y[5]
+    f_2 = y[1] + y[5]
+    f_1 = y[0] + y[4] + 2*y[5]
     f = np.array([f_1, f_2, f_3, f_4, f_5, f_6])
     return f
+
+def solucao_exata(t):
+    y_1_e = (0.5*(t**2)*np.exp(t) - (np.exp(t)))
+    y_2_e = (np.exp(t)) + (t*np.exp(t))
+    y_3_e = (-0.5*(t**2)*np.exp(t)) + (t*np.exp(t))
+    y_4_e = (0.5*(t**2)*np.exp(t)) - (t*np.exp(t)) + (np.exp(t))
+    y_5_e = (t*np.exp(t)) - (2*np.exp(t))
+    y_6_e = np.exp(t)
+    y_e = np.array([y_1_e, y_2_e, y_3_e, y_4_e, y_5_e, y_6_e])
+    return y_e

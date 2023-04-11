@@ -1,9 +1,8 @@
 import math
 import numpy as np
-from metodos_numericos import trapezio_ponto_fixo
-from funcoes import f
-from metodos_numericos import trapezio_ponto_fixo_manufaturada
-from funcoes import f_manufaturada
+from metodos_numericos import trapezio_ponto_fixo, trapezio_ponto_fixo_manufaturada
+from funcoes import f, f_manufaturada, solucao_exata
+
 
 '''
 Função Python para o tamanho do passo h_n
@@ -27,6 +26,19 @@ def p(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
     p3 = (y_2h - y_h)[3]/(y_h - y_h_sobre_2)[3]
     p4 = (y_2h - y_h)[4]/(y_h - y_h_sobre_2)[4]
     p5 = (y_2h - y_h)[5]/(y_h - y_h_sobre_2)[5]
+    p = math.log2( math.sqrt( p0**2 + p1**2 + p2**2 + p3**2 + p4**2 + p5**2))
+    return p
+
+def p_manufaturada(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
+    y_2h = trapezio_ponto_fixo_manufaturada(int(n_trapezio/2), t_0, t_n, y_0, f_manufaturada, n_pontofixo, a)
+    y_h = trapezio_ponto_fixo_manufaturada(n_trapezio, t_0, t_n, y_0, f_manufaturada, n_pontofixo, a)
+    y_h_sobre_2 = trapezio_ponto_fixo_manufaturada(int(2*n_trapezio), t_0, t_n, y_0, f_manufaturada, n_pontofixo, a)
+    p0 = (y_2h - y_h)[0]/(y_h - y_h_sobre_2)[0]
+    p1 = (y_2h - y_h)[1]/(y_h - y_h_sobre_2)[1]
+    p2 = (y_2h - y_h)[2]/(y_h - y_h_sobre_2)[2]
+    p3 = (y_2h - y_h)[3]/(y_h - y_h_sobre_2)[3]
+    p4 = (y_2h - y_h)[4]/(y_h - y_h_sobre_2)[4]
+    p5 = (y_2h - y_h)[5]/(y_h - y_h_sobre_2)[5]
     p = math.log( math.sqrt( p0**2 + p1**2 + p2**2 + p3**2 + p4**2 + p5**2))
     return p
 
@@ -42,6 +54,13 @@ def erro(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
     y_h_sobre_2 = trapezio_ponto_fixo(int(2*n_trapezio), t_0, t_n, y_0, f, n_pontofixo, a)
     e = abs((y_h_sobre_2 - y_h))/3
     return math.sqrt(e[0]**2 + e[1]**2 + e[2]**2 + e[3]**2 + e[4]**2 + e[5]**2)
+
+def erro_manufaturada(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
+    y_h = trapezio_ponto_fixo_manufaturada(n_trapezio, t_0, t_n, y_0, f_manufaturada, n_pontofixo, a)
+    y_e = solucao_exata(t_n)
+    e = y_e - y_h
+    return math.sqrt(e[0]**2 + e[1]**2 + e[2]**2 + e[3]**2 + e[4]**2 + e[5]**2)
+
 
 def imprimeLinhaTabela(n, h_n, erro, p, iteração):
     if iteração == 5:
@@ -71,11 +90,24 @@ def tabela_sem_solucao():
     y_0 = np.array([y_00, y_01, y_02, y_03, y_04, y_05])
     n_pontofixo = 3
     t_n = 1
-    for i in range (5, 14):
+    for i in range (3, 4):
         n_trapezio = 2**i
         erro_n = erro(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
         p_n = p(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
         h = h_n(t_0, t_n, n_trapezio)
         imprimeLinhaTabela(n_trapezio, h, erro_n, p_n, i)
 
-tabela_sem_solucao()
+def tabela_manufaturada():
+    y_0 = np.array([-1, 1, 0, 1, -2, 1])
+    n_pontofixo = 3
+    t_0 = 0
+    t_n = 0.2
+    a = [0, 0, 0, 0, 0, 0]
+    for i in range (5, 14):
+        n_trapezio = 2**i
+        erro_n = erro_manufaturada(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
+        p_n = p_manufaturada(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
+        h = h_n(t_0, t_n, n_trapezio)
+        imprimeLinhaTabela(n_trapezio, h, erro_n, p_n, i)
+
+tabela_manufaturada()

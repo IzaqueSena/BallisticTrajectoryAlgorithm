@@ -39,7 +39,6 @@ def trapezio_ponto_fixo_manufaturada(n_trapezio, t_0, t_n, y_0, f_manufaturada, 
         for j in range(n_pontofixo):
             y_k_mais_um = y_k + (h/2) * (f_manufaturada(t_k, y_k, a) + f_manufaturada(t_k_mais_um, y_k_mais_um, a))
         # fim do ponto fixo
-
         y_k = y_k_mais_um
     return y_k_mais_um
 
