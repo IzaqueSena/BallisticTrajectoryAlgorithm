@@ -86,7 +86,7 @@ def spline_eixos(t, x_simples, x_completo, y_simples, y_completo, z_simples, z_c
     plt.xlabel("Tempo", labelpad=10)
     plt.ylabel("Posição em z", labelpad=10)
     plt.plot()
-    plt.legend(loc="lower left")
+    plt.legend(loc="lower center")
     plt.savefig("spline_z.png")
 
 def valores_simplificado():
@@ -124,6 +124,11 @@ def valores_simplificado():
         velocidadex_simplificado.append(y_t[3])
         i+=1
 
+    tempo.pop()
+    x_simplificado.pop()
+    y_simplificado.pop()
+    z_simplificado.pop()
+    velocidadex_simplificado.pop()
     return tempo, x_simplificado, y_simplificado, z_simplificado, velocidadex_simplificado
 
 def valores_completo():
@@ -169,12 +174,18 @@ def valores_completo():
         velocidadex_vento_resist.append(y_t[3])
         i+=1
 
+    tempo.pop()
+    x_vento_resist.pop()
+    y_vento_resist.pop()
+    z_vento_resist.pop()
+    velocidadex_vento_resist.pop()
     return tempo, x_vento_resist, y_vento_resist, z_vento_resist, velocidadex_vento_resist
 
 def main():
     t, x_simples, y_simples, z_simples, velocidade = valores_simplificado()
     t, x_completo, y_completo, z_completo, velocidade_completo = valores_completo()
     # criar_spline(t, x, y, velocidade, 1)
+    print(z_simples)
     criar_spline(t, velocidade_completo, velocidade, 2)
     spline_eixos(t, x_simples, x_completo, y_simples, y_completo, z_simples, z_completo)
 
