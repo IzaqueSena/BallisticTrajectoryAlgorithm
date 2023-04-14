@@ -22,7 +22,8 @@ def calcula_posicao(y_0, t_0, t, epsilon, a):
 
 
 '''
-Funcao que exibe trajetoria x, y, z e velocidade vx, vy, vz em 11 pontos no intervalo de tempo t_0, t 
+Funcao que exibe trajetoria x, y, z e velocidade vx, vy, vz em pontos equidistantes por t=0.1s, 
+enquanto z for maior que zero, ou atingir o tempo t. 
 dada sua posição inicial em coordenadas polares e constantes do ambiente
 
 Parametros:

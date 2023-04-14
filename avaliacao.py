@@ -26,7 +26,7 @@ def p(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
     p3 = (y_2h - y_h)[3]/(y_h - y_h_sobre_2)[3]
     p4 = (y_2h - y_h)[4]/(y_h - y_h_sobre_2)[4]
     p5 = (y_2h - y_h)[5]/(y_h - y_h_sobre_2)[5]
-    p = math.log2( math.sqrt( p0**2 + p1**2 + p2**2 + p3**2 + p4**2 + p5**2))
+    p = math.log( math.sqrt( p0**2 + p1**2 + p2**2 + p3**2 + p4**2 + p5**2))
     return p
 
 def p_manufaturada(n_trapezio, n_pontofixo, y_0, t_0, t_n, a):
@@ -90,7 +90,7 @@ def tabela_sem_solucao():
     y_0 = np.array([y_00, y_01, y_02, y_03, y_04, y_05])
     n_pontofixo = 3
     t_n = 1
-    for i in range (3, 4):
+    for i in range (5, 14):
         n_trapezio = 2**i
         erro_n = erro(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
         p_n = p(n_trapezio, n_pontofixo, y_0, t_0, t_n, a)
@@ -110,4 +110,4 @@ def tabela_manufaturada():
         h = h_n(t_0, t_n, n_trapezio)
         imprimeLinhaTabela(n_trapezio, h, erro_n, p_n, i)
 
-tabela_manufaturada()
+tabela_sem_solucao()
